@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QR Code Scanner</title>
+    <script src="https://unpkg.com/html5-qrcode/minified/html5-qrcode.min.js"></script>
+</head>
+<body>
+
+    <h1>QR Code Scanner</h1>
+    <div id="reader" style="width: 300px;"></div>
+    <div id="result"></div>
+
+    <script>
+        // Initialize the QR code scanner
+        function onScanSuccess(qrCodeMessage) {
+            // Display the QR code data
+            document.getElementById("result").innerHTML = `<strong>QR Code Data:</strong> ${qrCodeMessage}`;
+
+            // Stop the camera after a successful scan
+            html5QrCodeScanner.clear();
+        }
+
+        function onScanError(errorMessage) {
+            // Handle any scan errors (optional)
+            console.error("Scan error:", errorMessage);
+        }
+
+        // Create an instance of the Html5QrcodeScanner
+        var html5QrCodeScanner = new Html5QrcodeScanner(
+            "reader", 
+            { fps: 10, qrbox: 250 }
+        );
+
+        // Start scanning for QR codes
+        html5QrCodeScanner.render(onScanSuccess, onScanError);
+    </script>
+
+</body>
+</html>
